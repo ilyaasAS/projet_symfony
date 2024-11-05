@@ -1,0 +1,37 @@
+{% extends 'pages/layout.html.twig' %}
+
+{% block title %}
+  Connexion
+{% endblock %}
+
+{% block body %}
+  <div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded">
+    <h1 class="text-2xl font-bold mb-5 text-center">Connexion</h1>
+
+    {{ form_start(loginForm) }}
+
+    <div class="mb-4">
+      {{ form_widget(loginForm.email, {'full_name':'email', 'value': last_email, 'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'placeholder': 'Adresse email'}}) }}
+      {{ form_errors(loginForm.email) }}
+    </div>
+
+    <div class="mb-4">
+      {{ form_widget(loginForm.password, {'full_name':'password', 'attr': {'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'placeholder': 'Mot de passe'}}) }}
+      {{ form_errors(loginForm.password) }}
+    </div>
+
+    <div class="flex items-center justify-between">
+      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        Se connecter
+      </button>
+    </div>
+
+    {{ form_end(loginForm) }}
+
+    {% if error %}
+      <div class="mt-4 p-2 text-red-500 border border-red-500 rounded">
+        {{ error.messageKey|trans(error.messageData, 'security') }}
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
