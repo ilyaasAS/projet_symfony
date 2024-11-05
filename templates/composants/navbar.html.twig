@@ -1,22 +1,22 @@
-<nav class="navbar">
-	<ul >
-		<li>
-			<a href="/">Accueil</a>
-		</li>
-
+<nav class="bg-blue-600 p-4">
+    <ul class="flex space-x-4">
         <li>
-			<a href="/">Accueil</a>
-		</li>
-
-        <li>
-			<a href="/">Accueil</a>
-		</li>
-
-        <li>
-			<a href="/">Accueil</a>
-		</li>
-
-	</ul>
+            <a href="/" class="text-white hover:text-blue-200 transition-colors duration-300">Accueil</a>
+        </li>
+        {% if app.user %}
+            <li>
+                <a href="/logout" class="text-white hover:text-blue-200 transition-colors duration-300">Déconnexion</a>
+            </li>
+        {% else %}
+            <li>
+                <a href="/login" class="text-white hover:text-blue-200 transition-colors duration-300">Connexion</a>
+            </li>
+            <li>
+                <a href="/inscription" class="text-white hover:text-blue-200 transition-colors duration-300">Inscription</a>
+            </li>
+        {% endif %}
+    </ul>
 </nav>
+
 
 
