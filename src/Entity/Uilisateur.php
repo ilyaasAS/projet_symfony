@@ -73,7 +73,7 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->email; // Vous pouvez utiliser $this->pseudo si nécessaire
     }
 
     /**
@@ -127,7 +127,7 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get the value of pseudo
      */
-    public function getPseudo()
+    public function getPseudo(): ?string
     {
         return $this->pseudo;
     }
@@ -137,7 +137,7 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return  self
      */
-    public function setPseudo($pseudo)
+    public function setPseudo(?string $pseudo): static
     {
         $this->pseudo = $pseudo;
 
@@ -147,7 +147,7 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get the value of avatar
      */
-    public function getAvatar()
+    public function getAvatar(): ?string
     {
         return $this->avatar;
     }
@@ -157,7 +157,7 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return  self
      */
-    public function setAvatar($avatar)
+    public function setAvatar(?string $avatar): static
     {
         $this->avatar = $avatar;
 
@@ -167,7 +167,7 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get the value of emploi
      */
-    public function getEmploi()
+    public function getEmploi(): ?string
     {
         return $this->emploi;
     }
@@ -177,7 +177,7 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return  self
      */
-    public function setEmploi($emploi)
+    public function setEmploi(?string $emploi): static
     {
         $this->emploi = $emploi;
 
@@ -187,7 +187,7 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get the value of telephone
      */
-    public function getTelephone() // Correction ici
+    public function getTelephone(): ?string
     {
         return $this->telephone;
     }
@@ -197,7 +197,7 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return  self
      */
-    public function setTelephone($telephone) // Correction ici
+    public function setTelephone(?string $telephone): static
     {
         $this->telephone = $telephone;
 
@@ -207,7 +207,7 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get the value of siteURL
      */
-    public function getSiteURL()
+    public function getSiteURL(): ?string
     {
         return $this->siteURL;
     }
@@ -217,7 +217,7 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return  self
      */
-    public function setSiteURL($siteURL)
+    public function setSiteURL(?string $siteURL): static
     {
         $this->siteURL = $siteURL;
 
@@ -227,7 +227,7 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Get the value of description
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -237,7 +237,7 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return  self
      */
-    public function setDescription($description)
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
 

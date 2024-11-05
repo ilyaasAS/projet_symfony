@@ -1,11 +1,47 @@
+{# templates/pages/profile/index.html.twig #}
+
 {% extends 'pages/layout.html.twig' %}
 
-{% block title %}Profil{% endblock %}
+{% block title %}Profil de l'utilisateur{% endblock %}
 
 {% block body %}
-<div class="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-md rounded">
-    <h1 class="text-3xl font-bold mb-4 text-center">Bienvenue sur votre profil</h1>
-    <p class="text-gray-700 text-lg text-center">Voici les informations de votre profil.</p>
+<div class="max-w-lg mx-auto mt-10 p-6 bg-white shadow-md rounded">
+    <h1 class="text-2xl font-bold mb-5 text-center">Profil de {{ user.pseudo ?? 'Utilisateur' }}</h1>
+
+    <div class="flex items-center mb-4">
+        <img src="{{ user.avatar ? 'uploads/avatars/' ~ user.avatar : asset('images/default-avatar.png') }}" alt="Avatar" class="w-16 h-16 rounded-full">
+        <div class="ml-4">
+            <h2 class="font-semibold">{{ user.pseudo }}</h2>
+            <p class="text-gray-600">{{ user.description ?: 'Aucune description fournie.' }}</p>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <strong>Email:</strong> {{ user.email }}
+    </div>
+
+    {% if user.emploi %}
+    <div class="mb-4">
+        <strong>Emploi:</strong> {{ user.emploi }}
+    </div>
+    {% endif %}
+
+    {% if user.telephone %}
+    <div class="mb-4">
+        <strong>Téléphone:</strong> {{ user.telephone }}
+    </div>
+    {% endif %}
+
+    {% if user.siteURL %}
+    <div class="mb-4">
+        <strong>Site web:</strong> <a href="{{ user.siteURL }}" class="text-blue-600 hover:underline">{{ user.siteURL }}</a>
+    </div>
+    {% endif %}
+
+    <div class="flex justify-center">
+        <a href="{{ path('app_modifier_informations') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Modifier le profil
+        </a>
+    </div>
 </div>
 {% endblock %}
-
