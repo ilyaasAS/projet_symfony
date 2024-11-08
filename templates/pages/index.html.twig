@@ -1,11 +1,36 @@
 {% extends 'pages/layout.html.twig' %}
 
-{% block title %}Hello AccueilController!{% endblock %}
+{% block title %}Bienvenue sur mon Portfolio{% endblock %}
 
 {% block body %}
+    <!-- Section d'introduction -->
+    <section class="bg-gradient-to-r from-blue-700 via-blue-800 to-black py-24 px-6 text-white text-center">
+        <h1 class="text-5xl font-extrabold mb-4 font-poppins">Bienvenue sur mon Portfolio</h1>
+        <p class="text-xl mb-6 font-roboto">Découvrez mes projets, compétences et parcours professionnel.</p>
+    </section>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <!-- Section À propos -->
+    <section class="py-16 px-6 text-center bg-gray-900 text-white" id="a-propos">
+        <h2 class="text-4xl font-semibold mb-6 font-poppins">À propos de moi</h2>
+        <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-6 font-roboto">Je suis un développeur passionné par la création de solutions web innovantes. Avec une expérience en développement front-end et back-end, je m'efforce de créer des applications qui sont à la fois esthétiques et fonctionnelles.</p>
+    </section>
 
-</div>
+    <!-- Section de Projets -->
+    <section class="py-16 px-6 text-center bg-black text-white" id="projets">
+        <h2 class="text-4xl font-semibold mb-6 font-poppins">Mes Projets</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            <div class="bg-blue-800 rounded-lg shadow-md p-6 transition-all hover:scale-105 hover:bg-blue-700">
+                <h3 class="text-2xl font-bold mb-4 font-poppins">Projet 1</h3>
+                <p class="text-lg mb-4 font-roboto">Description du projet. Un projet passionnant qui a impliqué...</p>
+            </div>
+            <div class="bg-blue-800 rounded-lg shadow-md p-6 transition-all hover:scale-105 hover:bg-blue-700">
+                <h3 class="text-2xl font-bold mb-4 font-poppins">Projet 2</h3>
+                <p class="text-lg mb-4 font-roboto">Description du projet. Un projet passionnant qui a impliqué...</p>
+            </div>
+            <div class="bg-blue-800 rounded-lg shadow-md p-6 transition-all hover:scale-105 hover:bg-blue-700">
+                <h3 class="text-2xl font-bold mb-4 font-poppins">Projet 3</h3>
+                <p class="text-lg mb-4 font-roboto">Description du projet. Un projet passionnant qui a impliqué...</p>
+            </div>
+        </div>
+    </section>
 {% endblock %}
