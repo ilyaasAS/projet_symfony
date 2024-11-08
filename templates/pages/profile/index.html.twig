@@ -1,47 +1,100 @@
-{# templates/pages/profile/index.html.twig #}
-
 {% extends 'pages/layout.html.twig' %}
 
 {% block title %}Profil de l'utilisateur{% endblock %}
 
 {% block body %}
-<div class="max-w-lg mx-auto mt-10 p-6 bg-white shadow-md rounded">
-    <h1 class="text-2xl font-bold mb-5 text-center">Profil de {{ user.pseudo ?? 'Utilisateur' }}</h1>
+	<div class="max-w-lg mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+		<h1 class="text-3xl font-semibold mb-5 text-center text-blue-600">Profil de {{ user.pseudo ?? 'Utilisateur' }}</h1>
 
-    <div class="flex items-center mb-4">
-        <img src="{{ user.avatar ? 'uploads/avatars/' ~ user.avatar : asset('images/default-avatar.png') }}" alt="Avatar" class="w-16 h-16 rounded-full">
-        <div class="ml-4">
-            <h2 class="font-semibold">{{ user.pseudo }}</h2>
-            <p class="text-gray-600">{{ user.description ?: 'Aucune description fournie.' }}</p>
-        </div>
-    </div>
+		<div class="flex items-center mb-6">
+			<img src="{{ user.avatar ? 'uploads/avatars/' ~ user.avatar : asset('images/default-avatar.png') }}" alt="Avatar" class="w-20 h-20 rounded-full border-4 border-blue-600">
+			<div class="ml-4">
+				<h2 class="text-xl font-semibold text-gray-900">{{ user.pseudo }}</h2>
+				<p class="text-gray-600">{{ user.description ?: 'Aucune description fournie.' }}</p>
+			</div>
+		</div>
 
-    <div class="mb-4">
-        <strong>Email:</strong> {{ user.email }}
-    </div>
+		<div class="mb-4 text-gray-800">
+			<strong>Email:</strong>
+			<p>{{ user.email }}</p>
+		</div>
 
-    {% if user.emploi %}
-    <div class="mb-4">
-        <strong>Emploi:</strong> {{ user.emploi }}
-    </div>
-    {% endif %}
+		{% if user.emploi %}
+			<div class="mb-4 text-gray-800">
+				<strong>Emploi:</strong>
+				<p>{{ user.emploi }}</p>
+			</div>
+		{% endif %}
 
-    {% if user.telephone %}
-    <div class="mb-4">
-        <strong>Téléphone:</strong> {{ user.telephone }}
-    </div>
-    {% endif %}
+		{% if user.telephone %}
+			<div class="mb-4 text-gray-800">
+				<strong>Téléphone:</strong>
+				<p>{{ user.telephone }}</p>
+			</div>
+		{% endif %}
 
-    {% if user.siteURL %}
-    <div class="mb-4">
-        <strong>Site web:</strong> <a href="{{ user.siteURL }}" class="text-blue-600 hover:underline">{{ user.siteURL }}</a>
-    </div>
-    {% endif %}
+		{% if user.siteURL %}
+			<div class="mb-4 text-gray-800">
+				<strong>Site web:</strong>
+				<a href="{{ user.siteURL }}" class="text-blue-500 hover:text-blue-700">{{ user.siteURL }}</a>
+			</div>
+		{% endif %}
 
-    <div class="flex justify-center">
-        <a href="{{ path('app_modifier_informations') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Modifier le profil
-        </a>
-    </div>
+		<div class="flex justify-center mb-6">
+			<a href="{{ path('app_modifier_informations') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+				Modifier le profil
+			</a>
+		</div>
+
+		{# Section des collections #}
+		<div class="mt-8">
+			<h2 class="text-2xl font-semibold mb-4 text-gray-800">Mes Collections</h2>
+
+			{# Bouton d'ajout de collection #}
+			<div class="flex justify-center mb-4">
+    <a href="{{ path('app_ajouter_collection') }}" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-300">
+        Ajouter une nouvelle collection
+    </a>
 </div>
+
+
+			{% for collection in user.collections %}
+	<div class="mb-6 p-4 bg-gray-100 rounded-lg shadow-md hover:bg-gray-200 transition duration-300">
+		{# Image de couverture de la collection #}
+		{% if collection.cover %}
+			<img src="{{ 'uploads/covers/' ~ collection.cover }}" alt="Image de {{ collection.titre }}" class="w-full h-48 object-cover rounded mb-4">
+		{% endif %}
+
+		<h3 class="text-lg font-bold text-gray-900">{{ collection.titre }}</h3>
+		<p class="text-gray-700">{{ collection.description }}</p>
+		<p class="text-gray-600 text-sm mt-2">Catégorie: {{ collection.categorie }}</p>
+		<p class="text-gray-600 text-sm">Tags: {{ collection.tags | join(', ') }}</p>
+		<p class="text-gray-600 text-sm">Visibilité: {{ collection.isPublic ? 'Public' : 'Privé' }}</p>
+
+		<div class="flex justify-center mt-4">
+			<a href="{{ path('app_detail_collection', { 'id': collection.id }) }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+				Voir la collection
+			</a>
+		</div>
+
+		<div class="flex justify-between items-center mt-4">
+			{# Lien vers la page de modification de la collection #}
+			<a href="{{ path('app_modifier_collection', {'id': collection.id}) }}" class="text-blue-500 hover:text-blue-700">
+				Modifier cette collection
+			</a>
+
+			{# Formulaire de suppression de la collection #}
+			<form action="{{ path('app_supprimer_collection', {'id': collection.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette collection ?');" class="inline-block">
+				<button type="submit" class="text-red-500 hover:text-red-700">
+					Supprimer cette collection
+				</button>
+			</form>
+		</div>
+	</div>
+{% else %}
+	<p class="text-gray-500">Aucune collection disponible.</p>
+{% endfor %}
+
+		</div>
+	</div>
 {% endblock %}

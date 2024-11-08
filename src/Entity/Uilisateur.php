@@ -49,6 +49,11 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 500)]
     private ?string $description = null;
 
+    // Ajout de la relation OneToMany avec ItemCollection
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: ItemCollection::class)]
+    
+    private $collections;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -84,7 +89,7 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+        // garantir qu'un utilisateur a au moins le rôle ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -120,7 +125,7 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
+        // Si vous stockez des données sensibles temporaires sur l'utilisateur, effacez-les ici
         // $this->plainPassword = null;
     }
 
@@ -242,5 +247,11 @@ class Uilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         $this->description = $description;
 
         return $this;
+    }
+
+    // Getter pour les collections
+    public function getCollections(): iterable
+    {
+        return $this->collections;
     }
 }

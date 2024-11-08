@@ -1,0 +1,51 @@
+{% extends 'pages/layout.html.twig' %}
+
+{% block title %}Liste des collections
+{% endblock %}
+
+{% block body %}
+	<div class="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md">
+		<h1 class="text-2xl font-semibold mb-4">Liste des collections</h1>
+
+		{# Ajouter un bouton pour créer une nouvelle collection #}
+		<div class="text-right mb-4">
+			<a href="{{ path('app_ajouter_collection') }}" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+				Ajouter une nouvelle collection
+			</a>
+		</div>
+
+		{% if collections is empty %}
+			<p>Aucune collection n'a été trouvée.</p>
+		{% else %}
+			<div class="space-y-4">
+				{% for collection in collections %}
+					<div
+						class="border-b border-gray-200 py-4">
+						{# Vérification de l'existence de la couverture avant de l'afficher #}
+						{% if collection.cover %}
+							<img src="{{ asset('uploads/covers/' ~ collection.cover) }}" alt="Couverture de {{ collection.titre }}" class="max-w-full h-auto rounded-md" style="max-width: 150px;">
+						{% else %}
+							<p>Aucune couverture disponible</p>
+						{% endif %}
+
+						<h3 class="text-lg font-semibold">{{ collection.titre }}</h3>
+						<p>{{ collection.description }}</p>
+
+						{# Lien vers la page de modification de chaque collection #}
+						<a href="{{ path('app_modifier_collection', {'id': collection.id}) }}" class="text-blue-500 hover:text-blue-700">
+							Modifier cette collection
+						</a>
+
+
+						{# Formulaire de suppression de la collection #}
+						<form action="{{ path('app_supprimer_collection', {'id': collection.id}) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette collection ?');" class="inline-block mt-2">
+							<button type="submit" class="text-red-500 hover:text-red-700">
+								Supprimer cette collection
+							</button>
+						</form>
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}
